@@ -30,9 +30,15 @@ function add(project) {
   return db("projects").insert(project);
 }
 
+// function findTasks() {
+//   return db("tasks");
+// }
+
 function findTasks() {
-  return db("tasks");
-}
+    return db('tasks')
+        .join('projects', 'projects.id', '=', 'tasks.project_id')
+        .select('projects.name as projectName', 'projects.description as projectDesc', 'tasks.notes', 'tasks.description', 'tasks.id');
+};
 
 function addTask(task) {
     return db("tasks").insert(task);
